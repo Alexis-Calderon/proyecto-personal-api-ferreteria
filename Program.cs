@@ -1,6 +1,20 @@
+using ferreteriaJuanito;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SqliteDBContext>(p => p.UseSqlite(builder.Configuration.GetConnectionString("CadenaDeConexion")));
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-app.Run();
+app.MapControllers();
+
+app.Run("http://localhost:4000");
