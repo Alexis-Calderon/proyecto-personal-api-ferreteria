@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Text;
 
+namespace ferreteriaJuanito;
+
 public class Encrypt
 {
     public static string GetSHA256(string input)

@@ -1,4 +1,4 @@
-using ferreteriaJuanito;
+namespace ferreteriaJuanito;
 
 public interface IUsuariosService
 {

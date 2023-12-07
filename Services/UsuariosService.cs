@@ -1,15 +1,19 @@
-using ferreteriaJuanito;
+namespace ferreteriaJuanito;
 
 public class UsuariosService : IUsuariosService
 {
-    SqliteDBContext _context;
-    public UsuariosService(SqliteDBContext context)
+    private readonly ILogger<UsuariosService> _logger;
+    private SqliteDBContext _context;
+
+    public UsuariosService(ILogger<UsuariosService> logger, SqliteDBContext context)
     {
+        _logger = logger;
         _context = context;
     }
 
     public IEnumerable<Usuario> Select()
     {
+        _logger.LogDebug("Extrae lista de usuarios.");
         return _context.Usuarios;
     }
 
@@ -21,11 +25,13 @@ public class UsuariosService : IUsuariosService
         if (usuarioActual == null)
         {
             usuario.Contraseña = Encrypt.GetSHA256(usuario.Contraseña);
-            _context.Add(usuario);
+            _context.Usuarios.Add(usuario);
             _context.SaveChanges();
-            return "El usuario se creo correctamente.";
+            _logger.LogDebug($"El usuario {usuario.Correo} se creo correctamente.");
+            return $"El usuario {usuario.Correo} se creo correctamente.";
         }
-        return "El usuario ya existe.";
+        _logger.LogDebug($"El usuario {usuarioActual.Correo} ya existe.");
+        return $"El usuario {usuarioActual.Correo} ya existe.";
     }
 
     public string Update(int id, Usuario usuario)
@@ -39,12 +45,15 @@ public class UsuariosService : IUsuariosService
                 usuarioActual.Contraseña = Encrypt.GetSHA256(usuario.Contraseña);
                 usuarioActual.Rol = usuario.Rol;
                 _context.SaveChanges();
-                return "El usuario se ha actualizado correctamente.";
+                _logger.LogDebug($"El usuario {usuario.Correo} se ha actualizado correctamente.");
+                return $"El usuario {usuario.Correo} se ha actualizado correctamente.";
             }
+            _logger.LogDebug("El usuario que intenta actualizar ya no existe.");
             return "El usuario que intenta actualizar ya no existe.";
         }
         catch (System.Exception ex)
         {
+            _logger.LogCritical(ex.Message);
             return ex.Message;
         }
     }
@@ -54,9 +63,10 @@ public class UsuariosService : IUsuariosService
         Usuario usuarioActual = _context.Usuarios.Find(id);
         if (usuarioActual != null)
         {
-            _context.Remove(usuarioActual);
+            _context.Usuarios.Remove(usuarioActual);
             _context.SaveChanges();
         }
-        return "El usuario se ha eliminado correctamente.";
+        _logger.LogDebug($"El usuario {usuarioActual.Correo} se ha eliminado correctamente.");
+        return $"El usuario {usuarioActual.Correo} se ha eliminado correctamente.";
     }
 }

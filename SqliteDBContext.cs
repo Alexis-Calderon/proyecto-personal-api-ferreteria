@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 
 namespace ferreteriaJuanito;
@@ -7,9 +6,7 @@ public class SqliteDBContext : DbContext
 {
 
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Producto> Productos { get; set; }
 
-    public SqliteDBContext(DbContextOptions<SqliteDBContext> options) : base(options)
-    {
-
-    }
+    public SqliteDBContext(DbContextOptions<SqliteDBContext> options) : base(options) {}
 }
