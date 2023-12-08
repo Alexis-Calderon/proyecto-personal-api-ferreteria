@@ -25,6 +25,13 @@ public class CarritosServise : ICarritosService
         Carrito carritoActual = _context.Carritos.Where(p=> p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
         if (carritoActual == null)
         {
+            Producto producto = _context.Productos.Where(p=>p.ProductoId == carrito.ProductoId).FirstOrDefault();
+            if (producto == null)
+            {
+                _logger.LogDebug("El producto que intenta agregar al carrito ya no existe.");
+                return "El producto que intenta agregar al carrito ya no existe.";
+            }
+            carrito.Cantidad = 1;
             _context.Carritos.Add(carrito);
             _context.SaveChanges();
             _logger.LogDebug("El producto ha sido agregado exitosamente al carrito.");
@@ -43,6 +50,14 @@ public class CarritosServise : ICarritosService
             {
                 if (carrito.Cantidad > 0)
                 {
+                    Producto producto = _context.Productos.Where(p => p.ProductoId == carrito.ProductoId).FirstOrDefault();
+                    if (producto.Stock < carrito.Cantidad)
+                    {
+                        carritoActual.Cantidad = producto.Stock;
+                        _context.SaveChanges();
+                        _logger.LogDebug($"El producto supera las {producto.Stock} unidades en stock.");
+                        return $"El producto supera las {producto.Stock} unidades en stock.";
+                    }
                     carritoActual.Cantidad = carrito.Cantidad;
                     _context.SaveChanges();
                     _logger.LogDebug("La cantidad del producto se ha actualizado correctamente.");

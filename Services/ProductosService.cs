@@ -61,10 +61,12 @@ public class ProductosService : IProductosService
         Producto productoActual = _context.Productos.Find(productoId);
         if (productoActual != null)
         {
+            IEnumerable<Carrito> carrito = _context.Carritos.Where(p=>p.ProductoId == productoId);
+            _context.Carritos.RemoveRange(carrito);
             _context.Productos.Remove(productoActual);
             _context.SaveChanges();
         }
-        _logger.LogDebug($"El producto {productoActual.Nombre} se ha eliminado correctamente.");
-        return $"El producto {productoActual.Nombre} se ha eliminado correctamente.";
+        _logger.LogDebug($"El producto {productoActual.Nombre} se ha eliminado correctamente, de igual manera han sido eliminadas todas las entradas en los carritos.");
+        return $"El producto {productoActual.Nombre} se ha eliminado correctamente, de igual manera han sido eliminadas todas las entradas en los carritos.";
     }
 }

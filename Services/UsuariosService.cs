@@ -63,10 +63,12 @@ public class UsuariosService : IUsuariosService
         Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
         if (usuarioActual != null)
         {
+            IEnumerable<Carrito> carrito = _context.Carritos.Where(p=>p.UsuarioId == usuarioId);
+            _context.Carritos.RemoveRange(carrito);
             _context.Usuarios.Remove(usuarioActual);
             _context.SaveChanges();
         }
-        _logger.LogDebug($"El usuario {usuarioActual.Correo} se ha eliminado correctamente.");
-        return $"El usuario {usuarioActual.Correo} se ha eliminado correctamente.";
+        _logger.LogDebug($"El usuario {usuarioActual.Correo} se ha eliminado correctamente, de igual manera se ha eliminado su carrito.");
+        return $"El usuario {usuarioActual.Correo} se ha eliminado correctamente, de igual manera se ha eliminado su carrito.";
     }
 }
