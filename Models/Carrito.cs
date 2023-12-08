@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace ferreteriaJuanito;
 
 public class Carrito

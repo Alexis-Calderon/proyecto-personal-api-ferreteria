@@ -45,5 +45,4 @@ public class UsuarioController : ControllerBase
         string mensaje = _usuariosService.Delete(usuarioId);
         return Ok(mensaje);
     }
-
 }

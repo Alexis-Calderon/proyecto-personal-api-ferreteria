@@ -53,7 +53,7 @@ public class UsuariosService : IUsuariosService
         }
         catch (System.Exception ex)
         {
-            _logger.LogCritical(ex.Message);
+            _logger.LogError(ex.Message);
             return ex.Message;
         }
     }
@@ -63,7 +63,7 @@ public class UsuariosService : IUsuariosService
         Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
         if (usuarioActual != null)
         {
-            IEnumerable<Carrito> carrito = _context.Carritos.Where(p=>p.UsuarioId == usuarioId);
+            IEnumerable<Carrito> carrito = _context.Carritos.Where(p => p.UsuarioId == usuarioId);
             _context.Carritos.RemoveRange(carrito);
             _context.Usuarios.Remove(usuarioActual);
             _context.SaveChanges();

@@ -19,7 +19,7 @@ public class ProductosService : IProductosService
 
     public string Create(Producto producto)
     {
-        Producto productoActual = _context.Productos.Where(p=> p.Nombre == producto.Nombre).FirstOrDefault();
+        Producto productoActual = _context.Productos.Where(p => p.Nombre == producto.Nombre).FirstOrDefault();
         if (productoActual == null)
         {
             _context.Productos.Add(producto);
@@ -49,7 +49,7 @@ public class ProductosService : IProductosService
             _logger.LogDebug("El producto que intenta actualizar ya no existe.");
             return "El producto que intenta actualizar ya no existe.";
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex.Message);
             return ex.Message;
@@ -61,7 +61,7 @@ public class ProductosService : IProductosService
         Producto productoActual = _context.Productos.Find(productoId);
         if (productoActual != null)
         {
-            IEnumerable<Carrito> carrito = _context.Carritos.Where(p=>p.ProductoId == productoId);
+            IEnumerable<Carrito> carrito = _context.Carritos.Where(p => p.ProductoId == productoId);
             _context.Carritos.RemoveRange(carrito);
             _context.Productos.Remove(productoActual);
             _context.SaveChanges();

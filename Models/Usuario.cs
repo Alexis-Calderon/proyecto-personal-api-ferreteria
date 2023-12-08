@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ferreteriaJuanito;
+﻿namespace ferreteriaJuanito;
 
 public class Usuario
 {

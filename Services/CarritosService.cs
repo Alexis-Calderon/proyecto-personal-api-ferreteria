@@ -1,5 +1,3 @@
-
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace ferreteriaJuanito;
@@ -17,15 +15,15 @@ public class CarritosServise : ICarritosService
 
     public IEnumerable<Carrito> Select(int usuarioId)
     {
-        return _context.Carritos.Where(p=> p.UsuarioId == usuarioId).Include(p=>p.Productos);
+        return _context.Carritos.Where(p => p.UsuarioId == usuarioId).Include(p => p.Productos);
     }
 
     public string Create(Carrito carrito)
     {
-        Carrito carritoActual = _context.Carritos.Where(p=> p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
+        Carrito carritoActual = _context.Carritos.Where(p => p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
         if (carritoActual == null)
         {
-            Producto producto = _context.Productos.Where(p=>p.ProductoId == carrito.ProductoId).FirstOrDefault();
+            Producto producto = _context.Productos.Where(p => p.ProductoId == carrito.ProductoId).FirstOrDefault();
             if (producto == null)
             {
                 _logger.LogDebug("El producto que intenta agregar al carrito ya no existe.");
@@ -45,7 +43,7 @@ public class CarritosServise : ICarritosService
     {
         try
         {
-            Carrito carritoActual = _context.Carritos.Where(p=> p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
+            Carrito carritoActual = _context.Carritos.Where(p => p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
             if (carritoActual != null)
             {
                 if (carrito.Cantidad > 0)
@@ -74,7 +72,7 @@ public class CarritosServise : ICarritosService
             _logger.LogDebug("El producto que intenta actualizar ya no existe.");
             return "El producto que intenta actualizar ya no existe.";
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex.Message);
             return ex.Message;
@@ -83,7 +81,7 @@ public class CarritosServise : ICarritosService
 
     public string Delete(Carrito carrito)
     {
-        Carrito carritoActual = _context.Carritos.Where(p=> p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
+        Carrito carritoActual = _context.Carritos.Where(p => p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
         if (carritoActual != null)
         {
             _context.Carritos.Remove(carritoActual);

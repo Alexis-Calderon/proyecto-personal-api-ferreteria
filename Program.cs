@@ -11,6 +11,8 @@ builder.Services.AddScoped<IProductosService, ProductosService>();
 builder.Services.AddScoped<ICarritosService, CarritosServise>();
 var app = builder.Build();
 
+app.UseMiddleware<GlobalExceptionsService>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

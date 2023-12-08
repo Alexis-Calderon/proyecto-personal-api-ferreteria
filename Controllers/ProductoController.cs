@@ -4,7 +4,7 @@ namespace ferreteriaJuanito;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductoController : ControllerBase 
+public class ProductoController : ControllerBase
 {
     private readonly ILogger<ProductoController> _logger;
     private IProductosService _productosService;
