@@ -22,7 +22,7 @@ public class ProductosService : IProductosService
         Producto productoActual = _context.Productos.Where(p=> p.Nombre == producto.Nombre).FirstOrDefault();
         if (productoActual == null)
         {
-            _context.Add(producto);
+            _context.Productos.Add(producto);
             _context.SaveChanges();
             _logger.LogDebug($"El producto {producto.Nombre} ha sido creado exitosamente");
             return $"El producto {producto.Nombre} ha sido creado exitosamente";
@@ -31,11 +31,11 @@ public class ProductosService : IProductosService
         return $"El producto {productoActual.Nombre} ya existe.";
     }
 
-    public string Update(int id, Producto producto)
+    public string Update(int productoId, Producto producto)
     {
         try
         {
-            Producto productoActual = _context.Productos.Find(id);
+            Producto productoActual = _context.Productos.Find(productoId);
             if (productoActual != null)
             {
                 productoActual.Nombre = producto.Nombre;
@@ -56,9 +56,9 @@ public class ProductosService : IProductosService
         }
     }
 
-    public string Delete(int id)
+    public string Delete(int productoId)
     {
-        Producto productoActual = _context.Productos.Find(id);
+        Producto productoActual = _context.Productos.Find(productoId);
         if (productoActual != null)
         {
             _context.Productos.Remove(productoActual);

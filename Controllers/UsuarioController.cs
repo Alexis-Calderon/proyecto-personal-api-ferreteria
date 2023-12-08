@@ -30,19 +30,19 @@ public class UsuarioController : ControllerBase
         return Ok(mensaje);
     }
 
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, Usuario usuario)
+    [HttpPut("{usuarioId}")]
+    public IActionResult Put(int usuarioId, Usuario usuario)
     {
         _logger.LogDebug("Metodo put de usuarios.");
-        string mensaje = _usuariosService.Update(id, usuario);
+        string mensaje = _usuariosService.Update(usuarioId, usuario);
         return Ok(mensaje);
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{usuarioId}")]
+    public IActionResult Delete(int usuarioId)
     {
         _logger.LogDebug("Metodo delete de usuarios.");
-        string mensaje = _usuariosService.Delete(id);
+        string mensaje = _usuariosService.Delete(usuarioId);
         return Ok(mensaje);
     }
 

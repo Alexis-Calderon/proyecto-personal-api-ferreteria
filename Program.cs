@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IProductosService, ProductosService>();
+builder.Services.AddScoped<ICarritosService, CarritosServise>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

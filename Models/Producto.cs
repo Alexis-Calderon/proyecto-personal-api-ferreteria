@@ -1,26 +1,15 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ferreteriaJuanito;
 
-[Table("Productos")]
 public class Producto
 {
-
-    [Key]
-    [Required]
-    public int id { get; set; }
-
-    [StringLength(100)]
-    [Required]
+    public int ProductoId { get; set; }
     public string Nombre { get; set; }
-
-    [Required]
     public int Precio { get; set; }
-
-    [Required]
     public UnidadesDeMedida UnidadesDeMedida { get; set; }
-
-    [Required]
     public int Stock { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<Carrito> Carritos { get; set; }
 }

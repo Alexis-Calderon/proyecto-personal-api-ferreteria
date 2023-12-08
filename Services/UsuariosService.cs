@@ -34,11 +34,11 @@ public class UsuariosService : IUsuariosService
         return $"El usuario {usuarioActual.Correo} ya existe.";
     }
 
-    public string Update(int id, Usuario usuario)
+    public string Update(int usuarioId, Usuario usuario)
     {
         try
         {
-            Usuario usuarioActual = _context.Usuarios.Find(id);
+            Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
             if (usuarioActual != null)
             {
                 usuarioActual.Nombre = usuario.Nombre;
@@ -58,9 +58,9 @@ public class UsuariosService : IUsuariosService
         }
     }
 
-    public string Delete(int id)
+    public string Delete(int usuarioId)
     {
-        Usuario usuarioActual = _context.Usuarios.Find(id);
+        Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
         if (usuarioActual != null)
         {
             _context.Usuarios.Remove(usuarioActual);

@@ -30,19 +30,19 @@ public class ProductoController : ControllerBase
         return Ok(mensaje);
     }
 
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, Producto producto)
+    [HttpPut("{productoId}")]
+    public IActionResult Put(int productoId, Producto producto)
     {
         _logger.LogDebug("Metodo put de productos.");
-        string mensaje = _productosService.Update(id, producto);
+        string mensaje = _productosService.Update(productoId, producto);
         return Ok(mensaje);
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{productoId}")]
+    public IActionResult Delete(int productoId)
     {
         _logger.LogDebug("Metodo delete de productos.");
-        string mensaje = _productosService.Delete(id);
+        string mensaje = _productosService.Delete(productoId);
         return Ok(mensaje);
     }
 }
