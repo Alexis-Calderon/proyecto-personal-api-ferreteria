@@ -15,7 +15,8 @@ public class CarritosServise : ICarritosService
 
     public IEnumerable<Carrito> Select(int usuarioId)
     {
-        return _context.Carritos.Where(p => p.UsuarioId == usuarioId).Include(p => p.Productos);
+        _logger.LogDebug("Extrae lista de productos incluidos en el carrito.");
+        return _context.Carritos.Where(p => p.UsuarioId == usuarioId).Include(p => p.Producto);
     }
 
     public string Create(Carrito carrito)
@@ -41,42 +42,34 @@ public class CarritosServise : ICarritosService
 
     public string Update(Carrito carrito)
     {
-        try
+        Carrito carritoActual = _context.Carritos.Where(p => p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
+        if (carritoActual != null)
         {
-            Carrito carritoActual = _context.Carritos.Where(p => p.UsuarioId == carrito.UsuarioId && p.ProductoId == carrito.ProductoId).FirstOrDefault();
-            if (carritoActual != null)
+            if (carrito.Cantidad > 0)
             {
-                if (carrito.Cantidad > 0)
+                Producto producto = _context.Productos.Where(p => p.ProductoId == carrito.ProductoId).FirstOrDefault();
+                if (producto.Stock < carrito.Cantidad)
                 {
-                    Producto producto = _context.Productos.Where(p => p.ProductoId == carrito.ProductoId).FirstOrDefault();
-                    if (producto.Stock < carrito.Cantidad)
-                    {
-                        carritoActual.Cantidad = producto.Stock;
-                        _context.SaveChanges();
-                        _logger.LogDebug($"El producto supera las {producto.Stock} unidades en stock.");
-                        return $"El producto supera las {producto.Stock} unidades en stock.";
-                    }
-                    carritoActual.Cantidad = carrito.Cantidad;
+                    carritoActual.Cantidad = producto.Stock;
                     _context.SaveChanges();
-                    _logger.LogDebug("La cantidad del producto se ha actualizado correctamente.");
-                    return "La cantidad del producto se ha actualizado correctamente.";
+                    _logger.LogDebug($"El producto supera las {producto.Stock} unidades en stock.");
+                    return $"El producto supera las {producto.Stock} unidades en stock.";
                 }
-                else
-                {
-                    _context.Carritos.Remove(carritoActual);
-                    _context.SaveChanges();
-                    _logger.LogDebug("El producto se ha eliminado del carrito por tener cantidad cero.");
-                    return "El producto se ha eliminado del carrito por tener cantidad cero.";
-                }
+                carritoActual.Cantidad = carrito.Cantidad;
+                _context.SaveChanges();
+                _logger.LogDebug("La cantidad del producto se ha actualizado correctamente.");
+                return "La cantidad del producto se ha actualizado correctamente.";
             }
-            _logger.LogDebug("El producto que intenta actualizar ya no existe.");
-            return "El producto que intenta actualizar ya no existe.";
+            else
+            {
+                _context.Carritos.Remove(carritoActual);
+                _context.SaveChanges();
+                _logger.LogDebug("El producto se ha eliminado del carrito por tener cantidad cero.");
+                return "El producto se ha eliminado del carrito por tener cantidad cero.";
+            }
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return ex.Message;
-        }
+        _logger.LogDebug("El producto que intenta actualizar ya no existe.");
+        return "El producto que intenta actualizar ya no existe.";
     }
 
     public string Delete(Carrito carrito)
