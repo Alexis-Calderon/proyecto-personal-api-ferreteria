@@ -33,27 +33,19 @@ public class ProductosService : IProductosService
 
     public string Update(int productoId, Producto producto)
     {
-        try
+        Producto productoActual = _context.Productos.Find(productoId);
+        if (productoActual != null)
         {
-            Producto productoActual = _context.Productos.Find(productoId);
-            if (productoActual != null)
-            {
-                productoActual.Nombre = producto.Nombre;
-                productoActual.Precio = producto.Precio;
-                productoActual.UnidadesDeMedida = producto.UnidadesDeMedida;
-                productoActual.Stock = producto.Stock;
-                _context.SaveChanges();
-                _logger.LogDebug($"El producto {producto.Nombre} se ha actualizado correctamente.");
-                return $"El producto {producto.Nombre} se ha actualizado correctamente.";
-            }
-            _logger.LogDebug("El producto que intenta actualizar ya no existe.");
-            return "El producto que intenta actualizar ya no existe.";
+            productoActual.Nombre = producto.Nombre;
+            productoActual.Precio = producto.Precio;
+            productoActual.UnidadesDeMedida = producto.UnidadesDeMedida;
+            productoActual.Stock = producto.Stock;
+            _context.SaveChanges();
+            _logger.LogDebug($"El producto {producto.Nombre} se ha actualizado correctamente.");
+            return $"El producto {producto.Nombre} se ha actualizado correctamente.";
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return ex.Message;
-        }
+        _logger.LogDebug("El producto que intenta actualizar ya no existe.");
+        return "El producto que intenta actualizar ya no existe.";
     }
 
     public string Delete(int productoId)

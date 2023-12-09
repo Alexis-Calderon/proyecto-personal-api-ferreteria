@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IProductosService, ProductosService>();
 builder.Services.AddScoped<ICarritosService, CarritosServise>();
+builder.Services.AddScoped<IVentasService, VentasService>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionsService>();

@@ -6,5 +6,5 @@ public class Carrito
     public int UsuarioId { get; set; }
     public int ProductoId { get; set; }
     public int Cantidad { get; set; }
-    public virtual Producto Productos { get; set; }
+    public virtual Producto Producto { get; set; }
 }

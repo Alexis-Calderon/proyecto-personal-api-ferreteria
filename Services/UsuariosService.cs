@@ -36,26 +36,18 @@ public class UsuariosService : IUsuariosService
 
     public string Update(int usuarioId, Usuario usuario)
     {
-        try
+        Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
+        if (usuarioActual != null)
         {
-            Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
-            if (usuarioActual != null)
-            {
-                usuarioActual.Nombre = usuario.Nombre;
-                usuarioActual.Contraseña = Encrypt.GetSHA256(usuario.Contraseña);
-                usuarioActual.Rol = usuario.Rol;
-                _context.SaveChanges();
-                _logger.LogDebug($"El usuario {usuario.Correo} se ha actualizado correctamente.");
-                return $"El usuario {usuario.Correo} se ha actualizado correctamente.";
-            }
-            _logger.LogDebug("El usuario que intenta actualizar ya no existe.");
-            return "El usuario que intenta actualizar ya no existe.";
+            usuarioActual.Nombre = usuario.Nombre;
+            usuarioActual.Contraseña = Encrypt.GetSHA256(usuario.Contraseña);
+            usuarioActual.Rol = usuario.Rol;
+            _context.SaveChanges();
+            _logger.LogDebug($"El usuario {usuario.Correo} se ha actualizado correctamente.");
+            return $"El usuario {usuario.Correo} se ha actualizado correctamente.";
         }
-        catch (System.Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return ex.Message;
-        }
+        _logger.LogDebug("El usuario que intenta actualizar ya no existe.");
+        return "El usuario que intenta actualizar ya no existe.";
     }
 
     public string Delete(int usuarioId)
@@ -63,6 +55,12 @@ public class UsuariosService : IUsuariosService
         Usuario usuarioActual = _context.Usuarios.Find(usuarioId);
         if (usuarioActual != null)
         {
+            IEnumerable<Venta> venta = _context.Ventas.Where(p => p.UsuarioId == usuarioId);
+            if (venta.Count() > 0)
+            {
+                _logger.LogDebug($"El usuario {usuarioActual.Correo} no se ha eliminado porque tiene ventas asociadas.");
+                return $"El usuario {usuarioActual.Correo} no se ha eliminado porque tiene ventas asociadas.";
+            }
             IEnumerable<Carrito> carrito = _context.Carritos.Where(p => p.UsuarioId == usuarioId);
             _context.Carritos.RemoveRange(carrito);
             _context.Usuarios.Remove(usuarioActual);
