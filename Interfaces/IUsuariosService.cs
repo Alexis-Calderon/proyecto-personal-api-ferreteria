@@ -1,5 +1,6 @@
 namespace ferreteriaJuanito;
 
+// Interface necesaria para la implementacion del servicio UsuariosService.
 public interface IUsuariosService
 {
     public IEnumerable<Usuario> Select();

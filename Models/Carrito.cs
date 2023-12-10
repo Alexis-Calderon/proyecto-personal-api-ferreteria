@@ -1,5 +1,6 @@
 namespace ferreteriaJuanito;
 
+// Modelo de datos de los productos dentro del carrito.
 public class Carrito
 {
     public int CarritoId { get; set; }

@@ -3,6 +3,7 @@ using System.Text;
 
 namespace ferreteriaJuanito;
 
+// Clase encargada de cifrar las contraseñas con SHA256.
 public class Encrypt
 {
     public static string GetSHA256(string input)

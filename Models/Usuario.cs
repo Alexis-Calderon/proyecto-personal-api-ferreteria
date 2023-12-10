@@ -2,6 +2,7 @@
 
 namespace ferreteriaJuanito;
 
+// Modelo de datos de los usuarios en el sistema.
 public class Usuario
 {
     public int UsuarioId { get; set; }

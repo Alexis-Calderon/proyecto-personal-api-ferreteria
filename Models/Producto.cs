@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ferreteriaJuanito;
 
+// Modelo de datos de los productos del sistema.
 public class Producto
 {
     public int ProductoId { get; set; }

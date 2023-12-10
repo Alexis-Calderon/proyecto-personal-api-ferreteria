@@ -1,5 +1,6 @@
 namespace ferreteriaJuanito;
 
+// Modelo de datos para las excepciones globales del sistema.
 public class GlobalException
 {
     public int StatusCode { get; }
