@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "74a320e0-89b9-4ea7-95e4-2f1099837efa",
+		"name": "Collection API Ferreteria Juanito",
+		"description": "En esta colleccion estan definidas las peticiones HTTP para la gestion de usuarios, productos y de los carritos de los clientes para finalmente generar la venta\n\nLos request ya estan configurados con un token de administrador valido hasta el miercoles 13-12-2023 a las 22:00, para cambiar el token se debe generar uno nuevo con los request \"Generar Token Administrador JWT\" y \"Generar Token Cliente JWT\" según sea el caso.\n\nLos token se generan con una valides de 3 días",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30370750"
+	},
+	"item": [
+		{
+			"name": "Usuario Lista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:4000/api/usuario",
+				"description": "Devuelve una lista con los usuarios actuales en el sistema\n\nRol administrador: si\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Editar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuarioId\": 2,\r\n    \"nombre\": \"Ramiro Perez Alviares\",\r\n    \"correo\": \"rperez@gmail.com\",\r\n    \"rol\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/usuario",
+				"description": "Actualiza nombre, correo y el rol del usuario.\n\nRol administrador: si cualquie usuario icluyendose\n\nRol Cliente: si solo a si mismo"
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Editar Contraseña",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuarioId\": 2,\r\n    \"contraseña\": \"ramiro\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/usuario",
+				"description": "Actualiza contraseña del usuario.\n\nRol administrador: si cualquie usuario icluyendose\n\nRol Cliente: si solo a si mismo"
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Agregar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Ramiro Perez\",\r\n    \"correo\": \"RPEREZ@gmail.com\",\r\n    \"contraseña\": \"ramiro\",\r\n    \"rol\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/usuario",
+				"description": "Agrega un nuevo usuario a la lista.\n\nEl id del usuario se genera automaticamente.\n\nRol administrador: si\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario Eliminar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuarioId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/usuario",
+				"description": "Elimina el usuario con todos los productos que tenga asociados en el carrito siempre y cuando no tenga ventas asociadas.\n\nRol administrador: si menos asi mismo\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Producto Lista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:4000/api/producto",
+				"description": "Devuelve una lista con los productos.\n\nRol administrador: si\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Producto Editar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productoId\": 2,\r\n    \"nombre\": \"Tornillos de 10 pulgadas.\",\r\n    \"precio\": 150.5,\r\n    \"unidadesDeMedida\": 1,\r\n    \"stock\": 30000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/producto",
+				"description": "Actualiza nombre, precio, unidad de media y stock del roducto seleccionado\n\nRol administrador: si\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Producto Agregar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Alambre222\",\r\n    \"precio\": 100,\r\n    \"unidadesDeMedida\": 0,\r\n    \"stock\": 300\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/producto",
+				"description": "Agrega un nuevo producto a la lista.\n\nEl id del producto se genera automaticamente.\n\nRol administrador: si\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Producto Eliminar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productoId\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/producto",
+				"description": "Elimina el producto y tambien se eliminan las entradas en los carritos.\n\nRol administrador: si\n\nRol Cliente: no"
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito Lista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:4000/api/carrito",
+				"description": "Devuelve una lista con los productos actuales en el carrito asosiados al usuario que ingreso al sistema.\n\nRol administrador: no\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito Producto Editar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carritoId\": 12,\r\n    \"cantidad\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/carrito",
+				"description": "Actualiza la cantidad que se desea comprar en el carrito, si la cantidad es 0 el producto se elimina del carrito, y si sobre pasa la cantidad del producto en stock se actualiza con la cantidad actual en stock.\n\nRol administrador: no\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito Producto Agregar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productoId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/carrito",
+				"description": "Agrega un producto diferente al carrito (evita duplicidad del producto en el carrito) con cantidad 1\n\nEl id del carrito se genera automaticamente.\n\nRol administrador: no\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito Producto Eliminar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carritoId\": 11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/carrito",
+				"description": "Elimina el producto seleccionado del carrito.\n\nRol administrador: no\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Venta Lista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:4000/api/venta",
+				"description": "Devuelve una lista con los productos actuales en las ventas asosiados al usuario.\n\nRol administrador: si\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Venta Generar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiIyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFsZXhpcyBDYWxkZXJvbiBEaWF6IGYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhY2FsZGVyb25kaWF6MkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzAyNTE1MjMzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAifQ.Ia_1GGMg607cj6-0ljAbQa3O0QzwGlOlCHIabGukZrQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:4000/api/venta",
+				"description": "Elimina los productos del carrito y los agrega una nueva venta.\n\nRol administrador: no\n\nRol Cliente: si"
+			},
+			"response": []
+		},
+		{
+			"name": "Generar Token Administrador JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\": \"acalderondiaz2@gmail.com\",\r\n    \"contraseña\": \"alexis\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/login",
+				"description": "Los datos actuales del Json generan un token con el rol de administrador"
+			},
+			"response": []
+		},
+		{
+			"name": "Generar Token Cliente JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\": \"juanitoperez@gmail.com\",\r\n    \"contraseña\": \"juan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:4000/api/login",
+				"description": "Los datos actuales del Json generan un token con el rol de cliente"
+			},
+			"response": []
+		}
+	]
+}
