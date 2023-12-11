@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ferreteriaJuanito;
 
+// Aqui se contruye el contexto de datos que se va a utilizar en la API
 public class SqliteDBContext : DbContext
 {
 
@@ -13,8 +14,11 @@ public class SqliteDBContext : DbContext
 
     public SqliteDBContext(DbContextOptions<SqliteDBContext> options) : base(options) { }
 
+
+    // Se configuran las propiedades y las entidades del modelo de datos usando FluenT API
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<Usuario>(usuario =>
         {
             usuario.ToTable("Usuario");

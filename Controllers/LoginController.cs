@@ -15,6 +15,7 @@ public class LoginController : ControllerBase
         _loginService = loginService;
     }
 
+    // Metodo Post que recibe las credenciales ingresadas y devuele el token de autenticacion al FrontEnd.
     [HttpPost]
     public IActionResult Post(Login login)
     {
