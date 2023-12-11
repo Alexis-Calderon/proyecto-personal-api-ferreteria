@@ -16,19 +16,19 @@ public class VentasService : IVentasService
 
     /* Metodo Select que devuelve una lista de todas las ventas con sus productos en caso con el campo "usuarioId" se 0 de lo contrario
      devuelve una lista de todas las ventas con sus productos del usuario logueado en el sistema.*/
-    public IEnumerable<Venta> Select(int usuarioId)
+    public IEnumerable<Venta> Select(int? idUsuarioLogueado)
     {
-        return usuarioId == 0 ? _context.Ventas.Include(p => p.Usuario).Include(p => p.ventaDetalles).ThenInclude(p => p.Producto) :
-        _context.Ventas.Where(p => p.UsuarioId == usuarioId).Include(p => p.Usuario).Include(p => p.ventaDetalles).ThenInclude(p => p.Producto);
+        return idUsuarioLogueado == null ? _context.Ventas.Include(p => p.Usuario).Include(p => p.ventaDetalles).ThenInclude(p => p.Producto) :
+        _context.Ventas.Where(p => p.UsuarioId == idUsuarioLogueado).Include(p => p.Usuario).Include(p => p.ventaDetalles).ThenInclude(p => p.Producto);
     }
 
     // Metodo Create se genera una venta de todos los productos del carrito del usuario logueado.
-    public string Create(int usuarioId)
+    public string Create(int idUsuarioLogueado)
     {
         // Variable que almacena el mensaje que retorna la funcion 
         string mensaje;
         // Extrae la lista de productos en el carrito del usuario logueado.
-        IEnumerable<Carrito> carrito = _context.Carritos.Where(p => p.UsuarioId == usuarioId);
+        IEnumerable<Carrito> carrito = _context.Carritos.Where(p => p.UsuarioId == idUsuarioLogueado);
         // Valida que la lista sea igual a 0
         if (carrito.Count() == 0)
         {
@@ -40,7 +40,7 @@ public class VentasService : IVentasService
         // Se crea un objeto del tipo "Venta" asignando los valores.
         Venta venta = new()
         {
-            UsuarioId = usuarioId,
+            UsuarioId = idUsuarioLogueado,
             Fecha = DateTime.Now
         };
         // Se agrega el objeto de tipo "Venta" al contexto

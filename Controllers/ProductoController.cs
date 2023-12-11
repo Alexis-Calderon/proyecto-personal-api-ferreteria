@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferreteriaJuanito;
@@ -5,6 +6,7 @@ namespace ferreteriaJuanito;
 // Controlador destinado a la ejecucion de metodos del mantenedor de productos.
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ProductoController : ControllerBase
 {
     private readonly ILogger<ProductoController> _logger;
@@ -28,6 +30,7 @@ public class ProductoController : ControllerBase
 
     // Metodo Post que agrega un nuevo producto a la lista de productos del sistema.
     [HttpPost]
+    [Authorize(Roles = "administrador")]
     public IActionResult Post(Producto producto)
     {
         // Se genera un log en consola que especifica la accion que se ejecuta en mode de desarrollo.
@@ -39,25 +42,27 @@ public class ProductoController : ControllerBase
     }
 
     // Metodo Put que actualiza un producto especifico de la lista de productos del sistema.
-    [HttpPut("{productoId}")]
-    public IActionResult Put(int productoId, Producto producto)
+    [HttpPut]
+    [Authorize(Roles = "administrador")]
+    public IActionResult Put(Producto producto)
     {
         // Se genera un log en consola que especifica la accion que se ejecuta en mode de desarrollo.
         _logger.LogDebug("Metodo put de productos.");
         // Se almacena el mensaje retorado por la funcion.
-        string mensaje = _productosService.Update(productoId, producto);
+        string mensaje = _productosService.Update(producto);
         // Retorna en el body el mensaje almacenado en la variable "mensaje".
         return Ok(mensaje);
     }
 
     // Metodo Delete que elimina un producto especifico de la lista de productos del sistema.
-    [HttpDelete("{productoId}")]
-    public IActionResult Delete(int productoId)
+    [HttpDelete]
+    [Authorize(Roles = "administrador")]
+    public IActionResult Delete(Producto producto)
     {
         // Se genera un log en consola que especifica la accion que se ejecuta en mode de desarrollo.
         _logger.LogDebug("Metodo delete de productos.");
         // Se almacena el mensaje retorado por la funcion.
-        string mensaje = _productosService.Delete(productoId);
+        string mensaje = _productosService.Delete(producto);
         // Retorna en el body el mensaje almacenado en la variable "mensaje".
         return Ok(mensaje);
     }
